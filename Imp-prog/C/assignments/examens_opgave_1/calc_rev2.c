@@ -1,6 +1,6 @@
 /*  Examens opgave 1 - Imp Prog - AAU CCT-1
-    18/10/2024 @ 07:53
-    calc_finished.c v1.2.0
+    16/10/2024 @ 08:53
+    calc_finished.c v1.2.2
 
     Sebastian Lindau-Skands
     slinda24@student.aau.dk */
@@ -77,16 +77,8 @@ int scan_data(double *input, char *opt, char valid_opts[]) {
 }
 
 bool is_unary(char *opt) {
-    switch(*opt) {
-        case '#':
-            return true;
-        case '!':
-            return true;
-        case '%':
-            return true;
-        default:
-            return false;
-    }
+    if (*opt == '#' || *opt == '!' || *opt == '%') {return true;}
+    else {return false;}
 }
 
 int do_next_op(double *accumulator, double input, char opt) {
