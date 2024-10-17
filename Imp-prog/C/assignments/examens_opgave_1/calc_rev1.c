@@ -13,7 +13,7 @@
 int run_calc(double input, double *result, char opt, char valid_opts[]);
 int scan_data(double *input);
 int scan_opt(char *opt, char valid_opts[]);
-int do_next_op(double *accumulator, double input, char opt);
+int do_next_op(double *result, double input, char opt);
 void help_menu();
 
 int main() {
@@ -31,14 +31,14 @@ int main() {
         else {break;}
     }
 
-    printf("\n\nFINAL accumulator: %lf", result);
+    printf("\n\nFINAL result: %lf", result);
     return 0;
 }
 
 int run_calc(double input, double *result, char opt, char valid_opts[]) {
     /*  return -1 on program exit (q)
         return 0 if loop is to be continued*/
-    double accumulator = *result;
+    double result = *result;
     bool input_needed = true;
     while (true) {
         printf("Please enter operand (type h for help): ");
@@ -70,7 +70,7 @@ int run_calc(double input, double *result, char opt, char valid_opts[]) {
     }
 
     while (input_needed) {
-        printf("Please enter a number you want to perform the operand on (together with accumulator): ");
+        printf("Please enter a number you want to perform the operand on (together with result): ");
         if (scan_data(&input) == -1) {
             printf("Invalid input. Please enter ONLY one number\n");
             continue;
@@ -78,7 +78,7 @@ int run_calc(double input, double *result, char opt, char valid_opts[]) {
         else {input_needed = false;}
     }
 
-    int do_next_op_return_code = do_next_op(&accumulator, input, opt);
+    int do_next_op_return_code = do_next_op(&result, input, opt);
     if (do_next_op_return_code == -1) {
         printf("Unknown error\n");
         return 0;
@@ -87,9 +87,9 @@ int run_calc(double input, double *result, char opt, char valid_opts[]) {
         return 0;
     }
 
-    printf("accumulator: %lf\n", accumulator);
+    printf("result: %lf\n", result);
 
-    *result = accumulator;
+    *result = result;
     return 0;
 }
 
@@ -108,37 +108,37 @@ int scan_opt(char *opt, char valid_opts[]) {
     else {return 0;}
 }
 
-int do_next_op(double *accumulator, double input, char opt) {
+int do_next_op(double *result, double input, char opt) {
     /*  Return -1 for failure to match switch case (should be impossible, but good to have)
         Return -2 for invalid inputs to operand (division by zero, sqrt on 0 or negative)*/
     switch (opt) {
         case '+':
-            *accumulator += input;
+            *result += input;
             break;
         case '-':
-            *accumulator -= input;
+            *result -= input;
             break;
         case '*':
-            *accumulator *= input;
+            *result *= input;
             break;
         case '/':
             if (input == 0.0) {
                 return -2;
             }
-            *accumulator /= input;
+            *result /= input;
             break;
         case '^':
-            *accumulator = pow(*accumulator, input);
+            *result = pow(*result, input);
             break;
         case '#':
-            if (*accumulator <= 0.0) {return -2;}
-            *accumulator = sqrt(*accumulator);
+            if (*result <= 0.0) {return -2;}
+            *result = sqrt(*result);
             break;
         case '%':
-            *accumulator *= -1.0;
+            *result *= -1.0;
             break;
         case '!':
-            *accumulator = 1 / *accumulator;
+            *result = 1 / *result;
             break;
         default:
             return -1;
@@ -155,6 +155,6 @@ void help_menu() {
     printf("  #    for kvadratroden af akkumulatoren\n");
     printf("  %%    for at vende fortegnet af akkumulatoren\n");
     printf("  !    for at dividere 1 med akkumulatoren\n");
-    printf("  q    for at afslutte regnemaskinen med slutaccumulatoratet\n");
+    printf("  q    for at afslutte regnemaskinen med slutresultatet\n");
     printf("  h    for at vise denne menu\n");
 }

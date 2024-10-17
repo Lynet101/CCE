@@ -1,6 +1,6 @@
 /*  Examens opgave 1 - Imp Prog - AAU CCT-1
-    16/10/2024 @ 08:53
-    calc_finished.c v1.2.2
+    17/10/2024 @ 08:02
+    calc_finished.c v1.2.4
 
     Sebastian Lindau-Skands
     slinda24@student.aau.dk */
@@ -12,7 +12,7 @@
 
 int run_calc(double input, double *result, char opt, char valid_opts[]);
 int scan_data(double *input, char *opt, char valid_opts[]);
-int do_next_op(double *accumulator, double input, char opt);
+int do_next_op(double *result, double input, char opt);
 bool is_unary(char *opt);
 void help_menu();
 
@@ -21,9 +21,9 @@ int main() {
     double result = 0.0;
     char opt;
     char valid_opts[] = "+-*/^#!hq%%";
+    
     run_calc(input, &result, opt, valid_opts);
     
-    printf("Final result: %lf\n", result);
     return 0;
 }
 
@@ -31,19 +31,19 @@ int run_calc(double input, double *result, char opt, char valid_opts[]) {
     printf("+----------------------------------------------------------------+\n");
     printf("|            WELCOME TO THE CALCULATOR ABOVE THEM ALL            |\n");
     printf("+----------------------------------------------------------------+\n");
-    double accumulator = *result;
     while (true) {
         switch(scan_data(&input, &opt, valid_opts)) {
             case -1:
+                printf("Final result: %lf\n", *result);
                 return 0;
             case 1:
                 help_menu();
                 continue;
         }
-        do_next_op(&accumulator, input, opt);
-        printf("accumulator is now: %lf\n\n", accumulator);
-        *result = accumulator;
+        do_next_op(result, input, opt);
+        printf("result is now: %lf\n\n", *result);
     }
+    printf("Final result is: %lf\n\n", *result);
 }
 
 int scan_data(double *input, char *opt, char valid_opts[]) {
@@ -81,28 +81,28 @@ bool is_unary(char *opt) {
     else {return false;}
 }
 
-int do_next_op(double *accumulator, double input, char opt) {
+int do_next_op(double *result, double input, char opt) {
     /*  Return -1 for failure to match switch case (should be impossible, but good to have)
         Return -2 for invalid inputs to operand (division by zero, sqrt on 0 or negative)*/
     switch (opt) {
         case '+':
-            *accumulator += input;
+            *result += input;
         case '-':
-            *accumulator -= input;
+            *result -= input;
         case '*':
-            *accumulator *= input;
+            *result *= input;
         case '/':
             if (input == 0.0) {return -2;}
-            *accumulator /= input;
+            *result /= input;
         case '^':
-            *accumulator = pow(*accumulator, input);
+            *result = pow(*result, input);
         case '#':
-            if (*accumulator <= 0.0) {return -2;}
-            *accumulator = sqrt(*accumulator);
+            if (*result <= 0.0) {return -2;}
+            *result = sqrt(*result);
         case '%':
-            *accumulator *= -1.0;
+            *result *= -1.0;
         case '!':
-            *accumulator = 1 / *accumulator;
+            *result = 1 / *result;
         default:
             return -1;
     }
