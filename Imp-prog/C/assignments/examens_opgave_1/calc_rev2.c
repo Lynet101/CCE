@@ -1,6 +1,6 @@
 /*  Examens opgave 1 - Imp Prog - AAU CCT-1
     17/10/2024 @ 08:02
-    calc_finished.c v1.2.4
+    calc_finished.c v1.2.5
 
     Sebastian Lindau-Skands
     slinda24@student.aau.dk */
@@ -43,7 +43,6 @@ int run_calc(double input, double *result, char opt, char valid_opts[]) {
         do_next_op(result, input, opt);
         printf("result is now: %lf\n\n", *result);
     }
-    printf("Final result is: %lf\n\n", *result);
 }
 
 int scan_data(double *input, char *opt, char valid_opts[]) {
