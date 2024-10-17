@@ -6,6 +6,7 @@
     slinda24@student.aau.dk */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
@@ -33,14 +34,14 @@ int run_calc(double input, double *result, char opt, char valid_opts[]) {
     printf("+----------------------------------------------------------------+\n");
     while (true) {
         switch(scan_data(&input, &opt, valid_opts)) {
-            case -1:
+            case 1:
                 printf("Final result: %lf\n", *result);
                 return 0;
-            case 1:
+            case 2:
                 help_menu();
                 continue;
         }
-        do_next_op(result, input, opt);
+        if (do_next_op(result, input, opt) == -1) {exit(-1);} // exit on return code -1 as this *should* be an impossible condition
         printf("result is now: %lf\n\n", *result);
     }
 }
@@ -61,8 +62,8 @@ int scan_data(double *input, char *opt, char valid_opts[]) {
     }
 
     if (is_unary(opt)) {return 0;}
-    if (*opt == 'q') {return -1;}
-    if (*opt == 'h') {return 1;}
+    if (*opt == 'q') {return 1;}
+    if (*opt == 'h') {return 2;}
 
     while (true) {
         printf("Please enter operand: ");
