@@ -1,48 +1,46 @@
 /*  Examens opgave 1 - Imp Prog - AAU CCT-1
-    17/10/2024 @ 08:02
-    calc_finished.c v1.2.5
+    18/10/2024 @ 11:15
+    calc_finished.c v1.2.6
 
     Sebastian Lindau-Skands
     slinda24@student.aau.dk */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
 
-int run_calc(double input, double *result, char opt, char valid_opts[]);
+int run_calc();
 int scan_data(double *input, char *opt, char valid_opts[]);
 int do_next_op(double *result, double input, char opt);
 bool is_unary(char *opt);
 void help_menu();
 
 int main() {
+    run_calc();
+    return 0;
+}
+
+int run_calc() {
     double input = 0.0;
     double result = 0.0;
     char opt;
     char valid_opts[] = "+-*/^#!hq%%";
-    
-    run_calc(input, &result, opt, valid_opts);
-    
-    return 0;
-}
 
-int run_calc(double input, double *result, char opt, char valid_opts[]) {
     printf("+----------------------------------------------------------------+\n");
     printf("|            WELCOME TO THE CALCULATOR ABOVE THEM ALL            |\n");
     printf("+----------------------------------------------------------------+\n");
     while (true) {
         switch(scan_data(&input, &opt, valid_opts)) {
             case 1:
-                printf("Final result: %lf\n", *result);
+                printf("Final result: %lf\n", result);
                 return 0;
             case 2:
                 help_menu();
                 continue;
         }
-        if (do_next_op(result, input, opt) == -1) {exit(-1);} // exit on return code -1 as this *should* be an impossible condition
-        printf("result is now: %lf\n\n", *result);
+        if (do_next_op(&result, input, opt) == -1) {exit(-1);} // exit on return code -1 as this *should* be an impossible condition
+        printf("result is now: %lf\n\n", result);
     }
 }
 
