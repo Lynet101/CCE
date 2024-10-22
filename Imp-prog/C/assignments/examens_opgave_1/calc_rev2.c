@@ -27,9 +27,9 @@ int run_calc() {
     char opt;
     char valid_opts[] = "+-*/^#!hq%%";
 
-    printf("+----------------------------------------------------------------+\n");
-    printf("|            WELCOME TO THE CALCULATOR ABOVE THEM ALL            |\n");
-    printf("+----------------------------------------------------------------+\n");
+    printf("+----------------------------------------------------------------+\n"
+        "|            WELCOME TO THE CALCULATOR ABOVE THEM ALL            |\n"
+        "+----------------------------------------------------------------+\n");
     while (true) {
         switch(scan_data(&input, &opt, valid_opts)) {
             case 1:
@@ -108,18 +108,18 @@ int do_next_op(double *result, double input, char opt) {
 }
 
 void help_menu() {
-    printf("+----------------------------------------------------------------+\n");
-    printf("|                             HELP MENU                          |\n");
-    printf("+----------------------------------------------------------------+\n");
-    printf("Available operators:\n");
-    printf("    + : Addition\n");
-    printf("    - : Subtraction\n");
-    printf("    * : Multiplication\n");
-    printf("    / : Division\n");
-    printf("    ^ : Exponentiation\n");
-    printf("    # : Square root\n");
-    printf("    %% : Negate\n");
-    printf("    ! : Reciprocal\n");
-    printf("    q : Quit\n");
-    printf("+----------------------------------------------------------------+\n");
+    printf("+----------------------------------------------------------------+\n"
+        "|                             HELP MENU                          |\n"
+        "+----------------------------------------------------------------+\n"
+        "Available operators:\n"
+        "    + : Addition\n"
+        "    - : Subtraction\n"
+        "    * : Multiplication\n"
+        "    / : Division\n"
+        "    ^ : Exponentiation\n"
+        "    # : Square root\n"
+        "    %% : Negate\n"
+        "    ! : Reciprocal\n"
+        "    q : Quit\n"
+        "+----------------------------------------------------------------+\n");
 }
