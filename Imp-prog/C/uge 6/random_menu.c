@@ -33,6 +33,5 @@ void print_menu(enum Pre_course pre_course, enum Main_course main_course, enum D
     printf("TODAYS MENU\n-----------\n");
     printf("Pre-course: %s\n", pre_courses[pre_course]);
     printf("Main course: %s\n", main_courses[main_course]);
-    printf("Desert: %s\n", desserts[dessert]);
-    printf("\n\n");
+    printf("Desert: %s\n\n\n", desserts[dessert]);
 }
