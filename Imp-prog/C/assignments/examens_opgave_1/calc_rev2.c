@@ -1,6 +1,6 @@
 /*  Examens opgave 1 - Imp Prog - AAU CCT-1
-    18/10/2024 @ 11:15
-    calc_finished.c v1.2.6
+    24/10/2024 @ 08:32
+    calc_finished.c v1.2.8
 
     Sebastian Lindau-Skands
     slinda24@student.aau.dk */
@@ -44,17 +44,25 @@ int run_calc() {
     }
 }
 
+void clear_input_buffer() {
+    //consume all characters in input buffer, to prevent runaway conditions with scanf()
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int scan_data(double *input, char *opt, char valid_opts[]) {
     //  return -1 on program exit (q)
     //  return 1 on helpmenu
     while (true) {
         printf("Please enter operator: ");
         if (scanf(" %c", opt) != 1) {
+            clear_input_buffer();
             printf("Please enter EXACTLY 1 operator\n");
             continue;}
 
         if (strchr(valid_opts, *opt) == NULL) {
-            printf("Invalid operator entered... Type 'h' if you need help");
+            clear_input_buffer();
+            printf("Invalid operator entered... Type 'h' if you need help\n");
             continue;}
         else {break;}
     }
@@ -66,7 +74,8 @@ int scan_data(double *input, char *opt, char valid_opts[]) {
     while (true) {
         printf("Please enter operand: ");
         if (scanf(" %lf", input) != 1) {
-            printf("Please enter EXACTLY 1 number");
+            clear_input_buffer();
+            printf("Please enter EXACTLY 1 number\n");
             continue;}
         else {break;}
     }
@@ -85,22 +94,30 @@ int do_next_op(double *result, double input, char opt) {
     switch (opt) {
         case '+':
             *result += input;
+            break;
         case '-':
             *result -= input;
+            break;
         case '*':
             *result *= input;
+            break;
         case '/':
             if (input == 0.0) {return -2;}
             *result /= input;
+            break;
         case '^':
             *result = pow(*result, input);
+            break;
         case '#':
             if (*result <= 0.0) {return -2;}
             *result = sqrt(*result);
+            break;
         case '%':
             *result *= -1.0;
+            break;
         case '!':
             *result = 1 / *result;
+            break;
         default:
             return -1;
     }
