@@ -1,6 +1,6 @@
-/*  Yatzy game with "n" dices
-    05/11/24 @ 08:01
-    yatzy.c v0.2
+/*  Yatzy game with "n" dices (not to handle in !!!)
+    05/11/24 @ 09:33
+    yatzy_rev1.c v0.2
 
     Sebastian Lindau-Skands
     slinda24@student.aau.dk */
