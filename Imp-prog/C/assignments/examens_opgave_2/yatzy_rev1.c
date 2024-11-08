@@ -23,6 +23,7 @@ void chance(int *gamestate, int n); //implemented (untested)
 int compare(const void* a, const void* b); //implemented support func to qsort
 void print_result(int *gamestate);
 
+
 int main() {
     int gamestate[16]; //[1, 2, 3, 4, 5, 6, bonus, pair, 2-pair, 3-of-a-kind, 4-of-a-kind, s. straight, l. straight, f. house, chance, yatsy]
     int n;
@@ -42,6 +43,7 @@ int main() {
     x_of_a_kind(gamestate, 5, n);
 
     print_result(gamestate);
+
 
     return 0;
 }
@@ -94,6 +96,7 @@ bool bonus_checker(int *gamestate) {
     for (int i = 0; i < 6; i++) {
         sum += gamestate[i];
     }
+
     if (sum > 50) {return true;}
     else {return false;}
 }
